@@ -22,10 +22,9 @@ export function ContentReveal({ children, className, delay = 0 }: ContentRevealP
     const ctx = gsap.context(() => {
       gsap.fromTo(
         node,
-        { y: 18, opacity: 0 },
+        { y: 18 },
         {
           y: 0,
-          opacity: 1,
           duration: 0.45,
           delay,
           ease: "power3.out",

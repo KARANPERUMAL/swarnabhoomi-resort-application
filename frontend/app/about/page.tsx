@@ -13,7 +13,7 @@ export default function AboutPage() {
         <div className="container-xl grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="eyebrow">About Swarnabhoomi</p>
-            <h1 className="mt-4 font-serif text-5xl leading-[0.92] md:text-7xl">A farm-side resort experience shaped for groups.</h1>
+            <h1 className="mt-4 font-serif text-4xl leading-[0.94] md:text-6xl">A farm-side resort experience shaped for groups.</h1>
           </div>
           <div className="grid gap-5 text-lg leading-8 text-[var(--muted)]">
             <p>

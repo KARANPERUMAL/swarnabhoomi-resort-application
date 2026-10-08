@@ -47,10 +47,10 @@ export function Header() {
           : "glass-header bg-[rgba(255,250,241,0.72)] text-[var(--deep)] backdrop-blur-2xl",
       )}
     >
-      <div className={cn("container-xl flex items-center justify-between gap-6 transition-[height] duration-500", expandedBrand ? "h-28" : "h-20")}>
+      <div className={cn("container-xl flex items-center justify-between gap-6 transition-[height] duration-500", expandedBrand ? "h-24" : "h-20")}>
         <Link
           href="/"
-          className={cn("focus-ring relative shrink-0 transition-[width,height] duration-500", expandedBrand ? "h-24 w-64" : "h-16 w-56")}
+          className={cn("focus-ring relative shrink-0 transition-[width,height] duration-500", expandedBrand ? "h-20 w-56" : "h-[3.75rem] w-52")}
           aria-label="Swarnabhoomi home"
         >
           <Image

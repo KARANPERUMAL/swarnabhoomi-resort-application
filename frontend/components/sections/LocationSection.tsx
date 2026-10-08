@@ -7,7 +7,7 @@ export function LocationSection() {
       <div className="container-xl grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
         <div>
           <p className="eyebrow">Location</p>
-          <h2 className="mt-4 font-serif text-5xl leading-[0.92] md:text-7xl">Hills, farms, and open air.</h2>
+          <h2 className="mt-4 font-serif text-4xl leading-[0.94] md:text-6xl">Hills, farms, and open air.</h2>
           <p className="mt-7 max-w-xl text-lg leading-8 text-[var(--muted)]">
             The supplied notes mention farm visits, village visits, and nearby travel references. Final map coordinates can be added when confirmed.
           </p>

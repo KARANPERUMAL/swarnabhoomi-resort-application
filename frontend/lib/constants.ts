@@ -6,6 +6,7 @@ export const resortContact = {
   phone: "+91 77608 33558",
   email: "avaniswarnabhoomi@gmail.com",
   address: "Swarnabhoomi, Kaggala, Karnataka 571463",
+  instagram: "https://www.instagram.com/swarnabhoomi89?stkn=MTVkNWN5dWo0Nzk0bA==",
 };
 
 export const rooms: Room[] = [
@@ -18,7 +19,6 @@ export const rooms: Room[] = [
     size: "Details to be confirmed",
     coverImage: "/images/services/A51.webp",
     gallery: [
-      "/images/services/A51.webp",
       "/images/rooms/A41.webp",
       "/images/rooms/A42.webp",
       "/images/rooms/A47.webp",
@@ -34,9 +34,9 @@ export const rooms: Room[] = [
     size: "Details to be confirmed",
     coverImage: "/images/rooms/room-02/cover.webp",
     gallery: [
-      "/images/rooms/room-02/cover.webp",
       "/images/rooms/room-02/cover1.webp",
       "/images/rooms/room-02/media-wall.webp",
+      "/images/rooms/room-02/A50.webp",
       "/images/wellness/pool-night.webp",
     ],
     amenities: ["Pool access", "TV", "Attached bathroom", "Family friendly"],
@@ -50,7 +50,6 @@ export const rooms: Room[] = [
     size: "Details to be confirmed",
     coverImage: "/images/services/A39.webp",
     gallery: [
-      "/images/services/A39.webp",
       "/images/rooms/A40.webp",
       "/images/rooms/A43.webp",
       "/images/services/A38.webp",
@@ -131,7 +130,7 @@ export const services: ResortService[] = [
   {
     title: "Archery",
     text: "Archery-style activity setup available as part of the outdoor experience.",
-    image: "/images/services/A38.webp",
+    image: "/images/services/archery.jpg",
   },
   {
     title: "Indoor Games",
@@ -146,7 +145,6 @@ export const services: ResortService[] = [
 ];
 
 export const galleryImages: GalleryImage[] = [
-  { src: "/images/wellness/aerial-pool.webp", alt: "Aerial pool view at Swarnabhoomi Farm Stay" },
   { src: "/images/services/A51.webp", alt: "Villa exterior with garden pathway at Swarnabhoomi" },
   { src: "/images/services/A38.webp", alt: "Cottages and lawn at dusk" },
   { src: "/images/rooms/A42.webp", alt: "Villa living room and indoor swing" },
@@ -154,4 +152,6 @@ export const galleryImages: GalleryImage[] = [
   { src: "/images/services/A52.webp", alt: "Swimming pool at night" },
   { src: "/images/location/hills-sunrise.webp", alt: "Sunrise over hills near the farm stay" },
   { src: "/images/services/A34.webp", alt: "Dining sit-out and courtyard lights" },
+  { src: "/images/services/A31.webp", alt: "Outdoor game and gathering area at night" },
+  { src: "/images/services/archery.jpg", alt: "Archery activity setup at Swarnabhoomi" },
 ];

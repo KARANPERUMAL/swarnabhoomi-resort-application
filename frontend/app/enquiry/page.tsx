@@ -20,7 +20,7 @@ export default async function EnquiryPage({ searchParams }: PageProps) {
         <div className="container-xl grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <TextReveal>
             <p className="eyebrow">Manual confirmation</p>
-            <h1 className="mt-5 font-serif text-7xl leading-[0.86] md:text-9xl">Send your stay enquiry.</h1>
+            <h1 className="mt-5 font-serif text-6xl leading-[0.88] md:text-8xl">Send your stay enquiry.</h1>
             <p className="mt-8 text-lg leading-8 text-[var(--muted)]">
               This is not an automatic booking engine. Your enquiry is saved, emailed to the resort team, and then confirmed manually after they contact you.
             </p>

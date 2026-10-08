@@ -14,10 +14,9 @@ export function TextReveal({ children }: { children: React.ReactNode }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         node.children,
-        { y: 38, opacity: 0 },
+        { y: 38 },
         {
           y: 0,
-          opacity: 1,
           duration: 0.95,
           ease: "power3.out",
           stagger: 0.09,

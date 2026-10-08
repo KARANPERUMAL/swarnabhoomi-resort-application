@@ -59,7 +59,7 @@ export function EnquiryForm({ selectedRoom }: { selectedRoom?: string }) {
     return (
       <div className="bg-[var(--cream)] p-8 md:p-12">
         <CheckCircle2 className="text-[var(--leaf)]" size={42} />
-        <h2 className="mt-6 font-serif text-5xl leading-none">Thank you for your enquiry.</h2>
+        <h2 className="mt-6 font-serif text-4xl leading-tight">Thank you for your enquiry.</h2>
         <p className="mt-5 text-lg leading-8 text-[var(--muted)]">{response}</p>
         <dl className="mt-8 grid gap-4 text-sm md:grid-cols-3">
           <div><dt className="font-bold">Dates</dt><dd>{form.checkIn} to {form.checkOut}</dd></div>

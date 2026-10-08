@@ -9,15 +9,25 @@ export function RoutePrefetch() {
   const router = useRouter();
 
   useEffect(() => {
-    const prefetchRoutes = () => routes.forEach((route) => router.prefetch(route));
-    const idleId = "requestIdleCallback" in window
-      ? window.requestIdleCallback(prefetchRoutes, { timeout: 1500 })
-      : undefined;
-    const timer = idleId === undefined ? window.setTimeout(prefetchRoutes, 500) : undefined;
+    let cancelled = false;
+    const timers: number[] = [];
+
+    const prefetchRoutes = () => {
+      routes.forEach((route, index) => {
+        const timer = window.setTimeout(() => {
+          if (!cancelled) router.prefetch(route);
+        }, index * 80);
+        timers.push(timer);
+      });
+    };
+
+    prefetchRoutes();
+    const warmAgain = window.setTimeout(prefetchRoutes, 1200);
+    timers.push(warmAgain);
 
     return () => {
-      if (idleId !== undefined && "cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
-      if (timer !== undefined) window.clearTimeout(timer);
+      cancelled = true;
+      timers.forEach((timer) => window.clearTimeout(timer));
     };
   }, [router]);
 

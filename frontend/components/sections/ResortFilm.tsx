@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { cn } from "@/lib/utils";
 
 export function ResortFilm() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,11 +45,13 @@ export function ResortFilm() {
     if (!video) return;
 
     if (video.paused) {
-      await video.play();
-      setPlaying(true);
+      try {
+        await video.play();
+      } catch {
+        setPlaying(false);
+      }
     } else {
       video.pause();
-      setPlaying(false);
     }
   };
 
@@ -66,13 +69,19 @@ export function ResortFilm() {
             onClick={toggle}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
+            onEnded={() => setPlaying(false)}
           />
           <div className="film-overlay pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,19,0.36),rgba(16,35,19,0.58))]" />
           <button
             type="button"
-            className="film-play focus-ring absolute left-1/2 top-1/2 inline-flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--cream)] text-[var(--deep)] shadow-[0_24px_70px_rgba(0,0,0,0.34)] transition duration-300 hover:bg-white hover:text-[var(--leaf)] data-[playing=true]:pointer-events-none data-[playing=true]:opacity-0"
+            className={cn(
+              "film-play focus-ring absolute left-1/2 top-1/2 inline-flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--cream)] text-[var(--deep)] shadow-[0_24px_70px_rgba(0,0,0,0.34)] transition duration-300 hover:bg-white hover:text-[var(--leaf)]",
+              playing && "pointer-events-none opacity-0",
+            )}
             onClick={toggle}
             aria-label="Play resort video"
+            aria-hidden={playing}
+            tabIndex={playing ? -1 : 0}
             data-playing={playing}
           >
             <span className="film-pulse absolute inset-0 rounded-full" aria-hidden="true" />

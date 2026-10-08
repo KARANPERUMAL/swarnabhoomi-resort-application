@@ -2,7 +2,7 @@
 
 This project can run without Railway by splitting the stack:
 
-- Frontend: Vercel free plan
+- Frontend: Cloudflare Pages free static hosting
 - Backend: Render free web service, or another free Java host
 - Database: Neon free PostgreSQL
 
@@ -32,15 +32,24 @@ After the first successful deploy creates the `enquiries` table, change `JPA_DDL
 - Start command: `java -jar target/website-0.0.1-SNAPSHOT.jar`
 - Health check path: `/api/health`
 
-## Vercel Frontend Settings
+## Cloudflare Pages Frontend Settings
 
 - Root directory: `frontend`
 - Build command: `npm run build`
-- Output: Next.js default
+- Output directory: `out`
 - Environment variable:
 
 ```env
 NEXT_PUBLIC_API_URL=https://YOUR_BACKEND_DOMAIN.onrender.com
 ```
 
-After Vercel gives you the final frontend URL, update the backend `FRONTEND_ORIGINS` value with that exact URL.
+After Cloudflare gives you the final frontend URL, update the backend `FRONTEND_ORIGINS` value with that exact URL.
+
+## GitHub Pages Alternative
+
+GitHub Pages can also host the exported frontend for free. Use `frontend/out` as the published static folder after running:
+
+```bash
+cd frontend
+npm run build
+```

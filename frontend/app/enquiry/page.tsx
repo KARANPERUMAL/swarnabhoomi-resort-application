@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { EnquiryForm } from "@/components/enquiry/EnquiryForm";
 import { ContentReveal } from "@/components/common/ContentReveal";
 import { TextReveal } from "@/components/common/TextReveal";
@@ -8,12 +9,7 @@ export const metadata: Metadata = {
   description: "Send an enquiry to Swarnabhoomi Farm Stay. The team will contact you manually to confirm availability.",
 };
 
-interface PageProps {
-  searchParams: Promise<{ room?: string }>;
-}
-
-export default async function EnquiryPage({ searchParams }: PageProps) {
-  const { room } = await searchParams;
+export default function EnquiryPage() {
   return (
     <main className="pt-28">
       <section className="section-pad">
@@ -26,7 +22,9 @@ export default async function EnquiryPage({ searchParams }: PageProps) {
             </p>
           </TextReveal>
           <ContentReveal delay={0.12}>
-            <EnquiryForm selectedRoom={room} />
+            <Suspense fallback={<div className="min-h-[620px] bg-[var(--cream)]" />}>
+              <EnquiryForm />
+            </Suspense>
           </ContentReveal>
         </div>
       </section>

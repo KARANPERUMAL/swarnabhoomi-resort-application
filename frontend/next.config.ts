@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
   images: {
     // Public images are already compressed WebP assets; serving them directly avoids first-view optimization work.
     unoptimized: true,

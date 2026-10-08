@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import { submitEnquiry } from "@/lib/api";
 import { nightsBetween } from "@/lib/utils";
@@ -25,10 +26,18 @@ const initialForm: EnquiryPayload = {
 };
 
 export function EnquiryForm({ selectedRoom }: { selectedRoom?: string }) {
-  const [form, setForm] = useState<EnquiryPayload>({ ...initialForm, selectedRoom: selectedRoom ?? "" });
+  const searchParams = useSearchParams();
+  const roomFromQuery = searchParams.get("room") ?? selectedRoom ?? "";
+  const [form, setForm] = useState<EnquiryPayload>({ ...initialForm, selectedRoom: roomFromQuery });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [response, setResponse] = useState<string>("");
   const nights = useMemo(() => nightsBetween(form.checkIn, form.checkOut), [form.checkIn, form.checkOut]);
+
+  useEffect(() => {
+    if (roomFromQuery) {
+      setForm((current) => ({ ...current, selectedRoom: roomFromQuery }));
+    }
+  }, [roomFromQuery]);
 
   const setField = <K extends keyof EnquiryPayload>(key: K, value: EnquiryPayload[K]) => {
     setForm((current) => ({ ...current, [key]: value }));

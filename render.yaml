@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: swarnabhoomi-resort-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: FRONTEND_ORIGINS
+        value: https://swarnabhoomi-resort-application.vercel.app
+      - key: JPA_DDL_AUTO
+        value: update
+      - key: MAIL_ENABLED
+        value: false
+      - key: MANAGER_EMAIL
+        value: karanperumaln@gmail.com
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

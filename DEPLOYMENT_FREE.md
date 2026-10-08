@@ -2,7 +2,7 @@
 
 This project can run without Railway by splitting the stack:
 
-- Frontend: Cloudflare Pages free static hosting
+- Frontend: Vercel or Cloudflare Pages
 - Backend: Render free web service, or another free Java host
 - Database: Neon free PostgreSQL
 
@@ -17,7 +17,7 @@ DB_URL=jdbc:postgresql://YOUR_NEON_HOST/YOUR_DATABASE?sslmode=require
 DB_USERNAME=YOUR_NEON_USER
 DB_PASSWORD=YOUR_NEON_PASSWORD
 JPA_DDL_AUTO=update
-FRONTEND_ORIGINS=https://YOUR_CLOUDFLARE_PAGES_DOMAIN.pages.dev
+FRONTEND_ORIGINS=https://swarnabhoomi-resort-application.vercel.app
 MAIL_ENABLED=false
 MANAGER_EMAIL=avaniswarnabhoomi@gmail.com
 ```
@@ -28,10 +28,11 @@ After the first successful deploy creates the `enquiries` table, change `JPA_DDL
 
 ## Render Backend Settings
 
+- Use the root `render.yaml` Blueprint in this repository.
+- Runtime: Docker
 - Root directory: `backend`
-- Build command: `mvn clean package -DskipTests`
-- Start command: `java -jar target/website-0.0.1-SNAPSHOT.jar`
 - Health check path: `/api/health`
+- Secret env values Render will ask for: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`
 
 ## Cloudflare Pages Frontend Settings
 
@@ -44,7 +45,7 @@ After the first successful deploy creates the `enquiries` table, change `JPA_DDL
 NEXT_PUBLIC_API_URL=https://YOUR_BACKEND_DOMAIN.onrender.com
 ```
 
-After Cloudflare gives you the final frontend URL, update the backend `FRONTEND_ORIGINS` value with that exact URL.
+If you deploy the frontend to a different domain later, update the backend `FRONTEND_ORIGINS` value with that exact origin.
 
 ## GitHub Pages Alternative
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Pause, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -57,24 +57,26 @@ export function ResortFilm() {
       <div className="film-frame relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[var(--deep)]">
           <video
             ref={videoRef}
-            className="film-video aspect-[16/7] min-h-[420px] w-full object-cover opacity-90"
+            className="film-video aspect-[16/7] min-h-[420px] w-full cursor-pointer object-cover opacity-90"
             src="/videos/hero/resort-film.mp4"
             poster="/images/hero/hero-main.webp"
             playsInline
             muted
             loop
+            onClick={toggle}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
           />
           <div className="film-overlay pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,19,0.36),rgba(16,35,19,0.58))]" />
           <button
             type="button"
-            className="film-play focus-ring absolute left-1/2 top-1/2 inline-flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--cream)] text-[var(--deep)] shadow-[0_24px_70px_rgba(0,0,0,0.34)] transition duration-300 hover:bg-white hover:text-[var(--leaf)]"
+            className="film-play focus-ring absolute left-1/2 top-1/2 inline-flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--cream)] text-[var(--deep)] shadow-[0_24px_70px_rgba(0,0,0,0.34)] transition duration-300 hover:bg-white hover:text-[var(--leaf)] data-[playing=true]:pointer-events-none data-[playing=true]:opacity-0"
             onClick={toggle}
-            aria-label={playing ? "Pause resort video" : "Play resort video"}
+            aria-label="Play resort video"
+            data-playing={playing}
           >
             <span className="film-pulse absolute inset-0 rounded-full" aria-hidden="true" />
-            {playing ? <Pause size={30} fill="currentColor" /> : <Play className="ml-1" size={36} fill="currentColor" />}
+            <Play className="ml-1" size={36} fill="currentColor" />
           </button>
           <div className="film-label absolute bottom-8 right-[max(2rem,calc((100vw-1240px)/2+2rem))] hidden max-w-sm text-right text-sm font-bold uppercase tracking-[0.18em] text-white/80 md:block">
             Watch the resort film

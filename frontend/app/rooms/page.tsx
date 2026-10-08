@@ -15,10 +15,10 @@ export default function RoomsPage() {
         <div className="container-xl">
           <p className="eyebrow">Rooms</p>
           <h1 className="mt-4 max-w-5xl font-serif text-4xl leading-[0.94] md:text-6xl">
-            Stay options for families, friends, and group getaways.
+            Villa and cottage stays for families, friends, and group getaways.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--muted)]">
-            These room details are arranged from the available room images and can be refined once final room names, capacity, and tariffs are approved.
+            Choose between Villa Stay and Cottage Stay. Every stay can include the wider resort experience, and tent stay can be requested as an add-on for guests who want an outdoor camp-style plan.
           </p>
         </div>
       </section>
@@ -34,23 +34,12 @@ export default function RoomsPage() {
                 <p className="eyebrow">{room.capacity}</p>
                 <h2 className="mt-3 font-serif text-3xl leading-none md:text-4xl">{room.name}</h2>
                 <p className="mt-5 text-lg leading-8 text-[var(--muted)]">{room.description}</p>
-                <dl className="mt-6 grid gap-4 text-sm md:grid-cols-2">
+                <dl className="mt-6 grid gap-4 text-sm">
                   <div className="border-t border-[var(--line)] pt-4">
                     <dt className="font-extrabold uppercase tracking-[0.14em]">Capacity</dt>
                     <dd className="mt-2 text-[var(--muted)]">{room.capacity}</dd>
                   </div>
-                  <div className="border-t border-[var(--line)] pt-4">
-                    <dt className="font-extrabold uppercase tracking-[0.14em]">Size</dt>
-                    <dd className="mt-2 text-[var(--muted)]">{room.size}</dd>
-                  </div>
                 </dl>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {room.amenities.map((amenity) => (
-                    <span key={amenity} className="border border-[var(--line)] px-3 py-2 text-xs font-bold uppercase tracking-[0.12em]">
-                      {amenity}
-                    </span>
-                  ))}
-                </div>
                 <div className="mt-8">
                   <Button href={`/enquiry?room=${encodeURIComponent(room.name)}`}>Enquire for this room</Button>
                 </div>

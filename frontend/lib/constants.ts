@@ -14,24 +14,21 @@ export const rooms: Room[] = [
     slug: "nature-view-cottage",
     name: "Villa Stay",
     description:
-      "A private villa-style stay with living space, attached washrooms, warm lighting, and easy access to the lawn and pool side.",
+      "A private villa-style stay for families and groups with living space, attached washrooms, pool access, food packages, bonfire and barbeque options, karaoke evenings, outdoor games, archery, indoor games, and farm walk experiences. Tent stay can be added on request when guests want an outdoor camp-style extension.",
     capacity: "Family / group stay",
-    size: "Details to be confirmed",
     coverImage: "/images/services/A51.webp",
     gallery: [
       "/images/rooms/A41.webp",
       "/images/rooms/A42.webp",
       "/images/rooms/A47.webp",
     ],
-    amenities: ["Attached bathroom", "Living area", "Garden access", "Enquiry-based stay"],
   },
   {
     slug: "poolside-cottage",
     name: "Cottage Stay",
     description:
-      "A relaxed cottage stay close to the pool and evening lights, ideal for families looking for quiet resort time.",
-    capacity: "2-4 guests",
-    size: "Details to be confirmed",
+      "A relaxed cottage stay close to the pool and evening lights, with access to the full resort experience: swimming pool, bonfire, barbeque, karaoke, net cricket, badminton, archery, indoor games, farm walk, and flexible food plans. Guests can also request tent stay as an add-on for groups.",
+    capacity: "Couple / family stay",
     coverImage: "/images/rooms/room-02/cover.webp",
     gallery: [
       "/images/rooms/room-02/cover1.webp",
@@ -39,22 +36,6 @@ export const rooms: Room[] = [
       "/images/rooms/room-02/A50.webp",
       "/images/wellness/pool-night.webp",
     ],
-    amenities: ["Pool access", "TV", "Attached bathroom", "Family friendly"],
-  },
-  {
-    slug: "family-farm-stay",
-    name: "Bunk Room Stay",
-    description:
-      "A simple, comfortable bunk room option for groups who want nature, food, games, and unhurried time together.",
-    capacity: "Family / group stay",
-    size: "Details to be confirmed",
-    coverImage: "/images/services/A39.webp",
-    gallery: [
-      "/images/rooms/A40.webp",
-      "/images/rooms/A43.webp",
-      "/images/services/A38.webp",
-    ],
-    amenities: ["Group friendly", "Attached facilities", "Farm walks", "Food packages"],
   },
 ];
 

@@ -3,10 +3,8 @@ export interface Room {
   name: string;
   description: string;
   capacity: string;
-  size: string;
   coverImage: string;
   gallery: string[];
-  amenities: string[];
 }
 
 export interface ResortExperience {

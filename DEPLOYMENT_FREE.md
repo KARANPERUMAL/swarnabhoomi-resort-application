@@ -53,6 +53,17 @@ MANAGER_EMAIL=karanperumaln@gmail.com
 
 Use a Google App Password, not your normal Gmail password. If an app password was pasted into chat, revoke it in Google Account settings and create a fresh one before saving it in Render.
 
+Render Free web services block outbound SMTP ports `25`, `465`, and `587`, so Gmail SMTP can fail on Render even when the same settings work on localhost. For the free Render backend, prefer Resend's HTTPS API:
+
+```env
+MAIL_ENABLED=true
+RESEND_API_KEY=re_your_resend_api_key
+RESEND_FROM=Swarnabhoomi <your-verified-sender@yourdomain.com>
+MANAGER_EMAIL=karanperumaln@gmail.com
+```
+
+If you do not have a domain yet, create a free Resend account and use the sender address Resend allows for your test account, then replace `RESEND_FROM` after you verify a real domain.
+
 ## Cloudflare Pages Frontend Settings
 
 - Root directory: `frontend`

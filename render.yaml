@@ -23,6 +23,10 @@ services:
         value: karanperumaln@gmail.com
       - key: MANAGER_EMAIL
         value: karanperumaln@gmail.com
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM
+        sync: false
       - key: MAIL_USERNAME
         sync: false
       - key: MAIL_PASSWORD

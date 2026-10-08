@@ -15,6 +15,12 @@ export interface ResortExperience {
   image: string;
 }
 
+export interface ResortService {
+  title: string;
+  text: string;
+  image: string;
+}
+
 export interface GalleryImage {
   src: string;
   alt: string;

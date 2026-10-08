@@ -17,7 +17,6 @@ PUBLIC = ROOT / "frontend" / "public"
 IMAGE_MAP = [
     ("images/hero/hero-main.png", "images/hero/hero-main.webp", 1820),
     ("images/resort/resort-night.jpg", "images/resort/resort-night.webp", 1280),
-    ("images/resort/arrival-sign.jpeg", "images/resort/arrival-sign.webp", 1280),
     ("images/resort/cottage-veranda.jpeg", "images/resort/cottage-veranda.webp", 1440),
     ("images/resort/evening-cottages.jpg", "images/resort/evening-cottages.webp", 1280),
     ("images/wellness/pool-walkway-night.jpg", "images/wellness/pool-walkway-night.webp", 1280),

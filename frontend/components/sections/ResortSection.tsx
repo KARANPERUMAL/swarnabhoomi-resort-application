@@ -11,7 +11,7 @@ export function ResortSection() {
             <ImageReveal src="/images/wellness/aerial-pool.webp" alt="Aerial pool view" className="aspect-[4/3]" />
             <div className="bg-[var(--deep)] p-8 text-[var(--cream)] md:p-10">
               <p className="eyebrow">Stay, food, farm visits</p>
-              <h2 className="mt-5 font-serif text-5xl leading-none md:text-6xl">A resort rhythm that turns slow time into the point.</h2>
+              <h2 className="mt-5 font-serif text-4xl leading-none md:text-5xl">A resort rhythm that turns slow time into the point.</h2>
             </div>
           </div>
         </div>

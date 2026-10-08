@@ -6,7 +6,7 @@ export function FinalCta() {
       <div className="container-xl flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
           <p className="eyebrow text-[var(--deep)]">Enquiry only</p>
-          <h2 className="mt-4 max-w-3xl font-serif text-6xl leading-[0.9] md:text-8xl">Tell us your dates. The team will call you back.</h2>
+          <h2 className="mt-4 max-w-3xl font-serif text-5xl leading-[0.92] md:text-7xl">Tell us your dates. The team will call you back.</h2>
         </div>
         <Button href="/enquiry" variant="primary" className="shrink-0">Start enquiry</Button>
       </div>

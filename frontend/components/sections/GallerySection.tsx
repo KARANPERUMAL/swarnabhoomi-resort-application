@@ -27,7 +27,7 @@ export function GallerySection() {
         <TextReveal>
           <div className="mb-12 max-w-4xl">
           <p className="eyebrow">Gallery</p>
-          <h2 className="mt-4 font-serif text-6xl leading-[0.9] md:text-8xl">A visual note from the farm.</h2>
+          <h2 className="mt-4 font-serif text-5xl leading-[0.92] md:text-7xl">A visual note from the farm.</h2>
           </div>
         </TextReveal>
         <div className="grid auto-rows-[220px] gap-4 md:grid-cols-4 md:auto-rows-[280px]">

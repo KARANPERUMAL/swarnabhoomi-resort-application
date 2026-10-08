@@ -1,4 +1,4 @@
-import type { GalleryImage, ResortExperience, Room } from "@/types/room";
+import type { GalleryImage, ResortExperience, ResortService, Room } from "@/types/room";
 
 export const resortContact = {
   name: "Swarnabhoomi Farm Stay",
@@ -11,29 +11,31 @@ export const resortContact = {
 export const rooms: Room[] = [
   {
     slug: "nature-view-cottage",
-    name: "Nature View Cottage",
+    name: "Villa Stay",
     description:
-      "A calm cottage stay with warm wood interiors and direct access to the garden-side resort paths.",
-    capacity: "2-3 guests",
-    size: "Room size to be confirmed",
-    coverImage: "/images/rooms/room-01/bedroom.webp",
+      "A private villa-style stay with living space, attached washrooms, warm lighting, and easy access to the lawn and pool side.",
+    capacity: "Family / group stay",
+    size: "Details to be confirmed",
+    coverImage: "/images/services/A51.webp",
     gallery: [
-      "/images/rooms/room-01/bedroom.webp",
-      "/images/rooms/room-01/cover.webp",
-      "/images/resort/cottage-veranda.webp",
+      "/images/services/A51.webp",
+      "/images/rooms/A41.webp",
+      "/images/rooms/A42.webp",
+      "/images/rooms/A47.webp",
     ],
-    amenities: ["Air conditioning", "Attached bathroom", "Garden access", "Enquiry-based stay"],
+    amenities: ["Attached bathroom", "Living area", "Garden access", "Enquiry-based stay"],
   },
   {
     slug: "poolside-cottage",
-    name: "Poolside Cottage",
+    name: "Cottage Stay",
     description:
-      "A relaxed stay close to the pool and evening lights, ideal for families looking for quiet resort time.",
+      "A relaxed cottage stay close to the pool and evening lights, ideal for families looking for quiet resort time.",
     capacity: "2-4 guests",
-    size: "Room size to be confirmed",
+    size: "Details to be confirmed",
     coverImage: "/images/rooms/room-02/cover.webp",
     gallery: [
       "/images/rooms/room-02/cover.webp",
+      "/images/rooms/room-02/cover1.webp",
       "/images/rooms/room-02/media-wall.webp",
       "/images/wellness/pool-night.webp",
     ],
@@ -41,18 +43,19 @@ export const rooms: Room[] = [
   },
   {
     slug: "family-farm-stay",
-    name: "Family Farm Stay",
+    name: "Bunk Room Stay",
     description:
-      "A simple, comfortable stay for families and small groups who want nature, food, and unhurried time together.",
+      "A simple, comfortable bunk room option for groups who want nature, food, games, and unhurried time together.",
     capacity: "Family / group stay",
-    size: "Room size to be confirmed",
-    coverImage: "/images/rooms/room-03/cover.webp",
+    size: "Details to be confirmed",
+    coverImage: "/images/services/A39.webp",
     gallery: [
-      "/images/rooms/room-03/cover.webp",
-      "/images/resort/arrival-sign.webp",
-      "/images/experiences/veranda-path.webp",
+      "/images/services/A39.webp",
+      "/images/rooms/A40.webp",
+      "/images/rooms/A43.webp",
+      "/images/services/A38.webp",
     ],
-    amenities: ["Bonfire on request", "Farm walks", "Pet friendly", "Food packages"],
+    amenities: ["Group friendly", "Attached facilities", "Farm walks", "Food packages"],
   },
 ];
 
@@ -79,13 +82,76 @@ export const experiences: ResortExperience[] = [
   },
 ];
 
+export const services: ResortService[] = [
+  {
+    title: "Villa Stay",
+    text: "Private villa-style rooms for families and groups who want more space.",
+    image: "/images/services/A51.webp",
+  },
+  {
+    title: "Cottage Stay",
+    text: "Comfortable cottages surrounded by garden paths and evening lights.",
+    image: "/images/rooms/room-02/cover.webp",
+  },
+  {
+    title: "Tent Stay",
+    text: "Outdoor stay options can be discussed for group plans and events.",
+    image: "/images/services/A38.webp",
+  },
+  {
+    title: "Swimming Pool",
+    text: "Pool time for relaxed afternoons and lit-up evenings.",
+    image: "/images/services/A52.webp",
+  },
+  {
+    title: "Bonfire",
+    text: "Evening bonfire arrangements for groups on request.",
+    image: "/images/experiences/bonfire-evening.webp",
+  },
+  {
+    title: "Barbeque",
+    text: "Barbeque add-ons for food-led gatherings and celebrations.",
+    image: "/images/experiences/food-barbecue.webp",
+  },
+  {
+    title: "Music with Karaoke",
+    text: "Music and karaoke arrangements for private group evenings.",
+    image: "/images/rooms/A41.webp",
+  },
+  {
+    title: "Net Cricket",
+    text: "Open play and net cricket activities for active groups.",
+    image: "/images/services/A31.webp",
+  },
+  {
+    title: "Badminton",
+    text: "Casual badminton for families, friends, and team outings.",
+    image: "/images/services/A38.webp",
+  },
+  {
+    title: "Archery",
+    text: "Archery-style activity setup available as part of the outdoor experience.",
+    image: "/images/services/A38.webp",
+  },
+  {
+    title: "Indoor Games",
+    text: "Indoor games and common-room time for slower parts of the day.",
+    image: "/images/rooms/A42.webp",
+  },
+  {
+    title: "Farm Walk",
+    text: "Walk through the farm landscape and enjoy a quieter rhythm.",
+    image: "/images/services/avocado-orchard.webp",
+  },
+];
+
 export const galleryImages: GalleryImage[] = [
   { src: "/images/wellness/aerial-pool.webp", alt: "Aerial pool view at Swarnabhoomi Farm Stay" },
-  { src: "/images/resort/arrival-sign.webp", alt: "Swarnabhoomi arrival sign and cottage exterior" },
-  { src: "/images/resort/cottage-veranda.webp", alt: "Cottage veranda with seating" },
-  { src: "/images/rooms/room-01/bedroom.webp", alt: "Warm wood bedroom at Swarnabhoomi" },
+  { src: "/images/services/A51.webp", alt: "Villa exterior with garden pathway at Swarnabhoomi" },
+  { src: "/images/services/A38.webp", alt: "Cottages and lawn at dusk" },
+  { src: "/images/rooms/A42.webp", alt: "Villa living room and indoor swing" },
   { src: "/images/resort/resort-night.webp", alt: "Swarnabhoomi cottages glowing at night" },
-  { src: "/images/experiences/avani-farms-buddha.webp", alt: "Avani Farms evening Buddha wall" },
+  { src: "/images/services/A52.webp", alt: "Swimming pool at night" },
   { src: "/images/location/hills-sunrise.webp", alt: "Sunrise over hills near the farm stay" },
-  { src: "/images/gallery/art-corner.webp", alt: "Interior art detail at the resort" },
+  { src: "/images/services/A34.webp", alt: "Dining sit-out and courtyard lights" },
 ];

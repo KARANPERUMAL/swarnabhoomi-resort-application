@@ -10,7 +10,8 @@ import { Button } from "@/components/common/Button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Stay" },
+  { href: "/", label: "Home" },
+  { href: "/rooms", label: "Rooms" },
   { href: "/services", label: "Services" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
@@ -46,23 +47,23 @@ export function Header() {
           : "glass-header bg-[rgba(255,250,241,0.72)] text-[var(--deep)] backdrop-blur-2xl",
       )}
     >
-      <div className={cn("container-xl flex items-center justify-between gap-6 transition-[height] duration-500", expandedBrand ? "h-24" : "h-20")}>
+      <div className={cn("container-xl flex items-center justify-between gap-6 transition-[height] duration-500", expandedBrand ? "h-28" : "h-20")}>
         <Link
           href="/"
-          className={cn("focus-ring relative shrink-0 transition-[width,height] duration-500", expandedBrand ? "h-[4.75rem] w-56" : "h-14 w-48")}
+          className={cn("focus-ring relative shrink-0 transition-[width,height] duration-500", expandedBrand ? "h-24 w-64" : "h-16 w-56")}
           aria-label="Swarnabhoomi home"
         >
           <Image
             src="/logos/swarnabhoomi-logo-transparent.png"
             alt="Swarnabhoomi Farm Stay"
-            width={224}
-            height={133}
+            width={288}
+            height={170}
             className="h-full w-full object-contain"
             style={{ display: "block", height: "100%", width: "100%", objectFit: "contain" }}
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
           {navItems.map((item) => (
             <Link prefetch className="nav-link focus-ring text-sm font-extrabold uppercase tracking-[0.18em] opacity-90 transition hover:opacity-100" href={item.href} key={item.href}>
               {item.label}

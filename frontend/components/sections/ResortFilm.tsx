@@ -1,6 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,7 +9,10 @@ import { cn } from "@/lib/utils";
 export function ResortFilm() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hideTimerRef = useRef<number | undefined>(undefined);
   const [playing, setPlaying] = useState(false);
+  const [showControl, setShowControl] = useState(true);
+  const controlHidden = playing && !showControl;
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -40,18 +43,56 @@ export function ResortFilm() {
     return () => ctx.revert();
   }, []);
 
-  const toggle = async () => {
+  useEffect(() => {
+    return () => {
+      if (hideTimerRef.current !== undefined) {
+        window.clearTimeout(hideTimerRef.current);
+      }
+    };
+  }, []);
+
+  const scheduleHideControl = () => {
+    if (hideTimerRef.current !== undefined) {
+      window.clearTimeout(hideTimerRef.current);
+    }
+    hideTimerRef.current = window.setTimeout(() => setShowControl(false), 850);
+  };
+
+  const playVideo = async () => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (video.paused) {
-      try {
-        await video.play();
-      } catch {
-        setPlaying(false);
-      }
+    setShowControl(true);
+    try {
+      await video.play();
+      scheduleHideControl();
+    } catch {
+      setPlaying(false);
+      setShowControl(true);
+    }
+  };
+
+  const pauseVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.pause();
+    setShowControl(true);
+  };
+
+  const handleControlClick = () => {
+    if (playing) {
+      pauseVideo();
     } else {
-      video.pause();
+      void playVideo();
+    }
+  };
+
+  const handleVideoClick = () => {
+    if (playing) {
+      setShowControl(true);
+    } else {
+      void playVideo();
     }
   };
 
@@ -66,26 +107,35 @@ export function ResortFilm() {
             playsInline
             muted
             loop
-            onClick={toggle}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            onEnded={() => setPlaying(false)}
+            onClick={handleVideoClick}
+            onPlay={() => {
+              setPlaying(true);
+              scheduleHideControl();
+            }}
+            onPause={() => {
+              setPlaying(false);
+              setShowControl(true);
+            }}
+            onEnded={() => {
+              setPlaying(false);
+              setShowControl(true);
+            }}
           />
           <div className="film-overlay pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,19,0.36),rgba(16,35,19,0.58))]" />
           <button
             type="button"
             className={cn(
               "film-play focus-ring absolute left-1/2 top-1/2 inline-flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--cream)] text-[var(--deep)] shadow-[0_24px_70px_rgba(0,0,0,0.34)] transition duration-300 hover:bg-white hover:text-[var(--leaf)]",
-              playing && "pointer-events-none opacity-0",
+              controlHidden && "pointer-events-none opacity-0",
             )}
-            onClick={toggle}
-            aria-label="Play resort video"
-            aria-hidden={playing}
-            tabIndex={playing ? -1 : 0}
+            onClick={handleControlClick}
+            aria-label={playing ? "Pause resort video" : "Play resort video"}
+            aria-hidden={controlHidden}
+            tabIndex={controlHidden ? -1 : 0}
             data-playing={playing}
           >
             <span className="film-pulse absolute inset-0 rounded-full" aria-hidden="true" />
-            <Play className="ml-1" size={36} fill="currentColor" />
+            {playing ? <Pause size={36} fill="currentColor" /> : <Play className="ml-1" size={36} fill="currentColor" />}
           </button>
           <div className="film-label absolute bottom-8 right-[max(2rem,calc((100vw-1240px)/2+2rem))] hidden max-w-sm text-right text-sm font-bold uppercase tracking-[0.18em] text-white/80 md:block">
             Watch the resort film

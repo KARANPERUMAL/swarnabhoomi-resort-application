@@ -16,12 +16,13 @@ PORT=8080
 DB_URL=jdbc:postgresql://YOUR_NEON_HOST/YOUR_DATABASE?sslmode=require
 DB_USERNAME=YOUR_NEON_USER
 DB_PASSWORD=YOUR_NEON_PASSWORD
-DB_DRIVER=org.postgresql.Driver
 JPA_DDL_AUTO=update
-FRONTEND_ORIGINS=https://YOUR_VERCEL_DOMAIN.vercel.app
+FRONTEND_ORIGINS=https://YOUR_CLOUDFLARE_PAGES_DOMAIN.pages.dev
 MAIL_ENABLED=false
 MANAGER_EMAIL=avaniswarnabhoomi@gmail.com
 ```
+
+Do not set `DB_DRIVER` unless you have a special reason. Spring Boot will choose the correct driver from `DB_URL`, which avoids mixing a MySQL URL with a PostgreSQL driver.
 
 After the first successful deploy creates the `enquiries` table, change `JPA_DDL_AUTO` to `validate` for safer production runs.
 

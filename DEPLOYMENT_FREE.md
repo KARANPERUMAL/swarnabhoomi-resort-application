@@ -22,7 +22,7 @@ MAIL_ENABLED=false
 MANAGER_EMAIL=avaniswarnabhoomi@gmail.com
 ```
 
-Do not set `DB_DRIVER` unless you have a special reason. Spring Boot will choose the correct driver from `DB_URL`, which avoids mixing a MySQL URL with a PostgreSQL driver.
+Do not set `DB_DRIVER` or `spring.datasource.driver-class-name` unless you have a special reason. Spring Boot will choose the correct driver from `DB_URL`, which avoids mixing a MySQL URL with an H2 or PostgreSQL driver.
 
 After the first successful deploy creates the `enquiries` table, change `JPA_DDL_AUTO` to `validate` for safer production runs.
 

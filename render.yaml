@@ -14,9 +14,19 @@ services:
       - key: JPA_DDL_AUTO
         value: update
       - key: MAIL_ENABLED
-        value: false
+        value: true
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_FROM
+        value: karanperumaln@gmail.com
       - key: MANAGER_EMAIL
         value: karanperumaln@gmail.com
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
       - key: DB_URL
         sync: false
       - key: DB_USERNAME

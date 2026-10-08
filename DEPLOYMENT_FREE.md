@@ -18,8 +18,13 @@ DB_USERNAME=YOUR_NEON_USER
 DB_PASSWORD=YOUR_NEON_PASSWORD
 JPA_DDL_AUTO=update
 FRONTEND_ORIGINS=https://swarnabhoomi-resort-application.vercel.app
-MAIL_ENABLED=false
-MANAGER_EMAIL=avaniswarnabhoomi@gmail.com
+MAIL_ENABLED=true
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-gmail-address@gmail.com
+MAIL_PASSWORD=your-google-app-password
+MAIL_FROM=your-gmail-address@gmail.com
+MANAGER_EMAIL=karanperumaln@gmail.com
 ```
 
 Do not set `DB_DRIVER` or `spring.datasource.driver-class-name` unless you have a special reason. Spring Boot will choose the correct driver from `DB_URL`, which avoids mixing a MySQL URL with an H2 or PostgreSQL driver.
@@ -32,7 +37,21 @@ After the first successful deploy creates the `enquiries` table, change `JPA_DDL
 - Runtime: Docker
 - Root directory: `backend`
 - Health check path: `/api/health`
-- Secret env values Render will ask for: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`
+- Secret env values Render will ask for: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `MAIL_USERNAME`, `MAIL_PASSWORD`
+
+For Gmail notifications, use:
+
+```env
+MAIL_ENABLED=true
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-gmail-address@gmail.com
+MAIL_PASSWORD=your-google-app-password
+MAIL_FROM=your-gmail-address@gmail.com
+MANAGER_EMAIL=karanperumaln@gmail.com
+```
+
+Use a Google App Password, not your normal Gmail password. If an app password was pasted into chat, revoke it in Google Account settings and create a fresh one before saving it in Render.
 
 ## Cloudflare Pages Frontend Settings
 

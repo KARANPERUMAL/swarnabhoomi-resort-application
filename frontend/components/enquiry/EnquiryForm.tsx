@@ -8,6 +8,8 @@ import { nightsBetween } from "@/lib/utils";
 import type { EnquiryPayload, Gender } from "@/types/enquiry";
 import { Button } from "@/components/common/Button";
 import { GuestSelector } from "@/components/enquiry/GuestSelector";
+import { DatePicker } from "@/components/enquiry/DatePicker";
+import { CustomSelect } from "@/components/enquiry/CustomSelect";
 import { rooms } from "@/lib/constants";
 
 const today = new Date().toISOString().slice(0, 10);
@@ -25,12 +27,28 @@ const initialForm: EnquiryPayload = {
   message: "",
 };
 
+type FieldErrors = Partial<Record<keyof EnquiryPayload | "dates", string>>;
+
+const genderOptions = [
+  { value: "MALE", label: "Male" },
+  { value: "FEMALE", label: "Female" },
+  { value: "PREFER_NOT_TO_SAY", label: "Prefer not to say" },
+];
+
+const roomOptions = [
+  { value: "", label: "Not sure yet" },
+  ...rooms.map((r) => ({ value: r.name, label: r.name })),
+];
+
 export function EnquiryForm({ selectedRoom }: { selectedRoom?: string }) {
   const searchParams = useSearchParams();
   const roomFromQuery = searchParams.get("room") ?? selectedRoom ?? "";
   const [form, setForm] = useState<EnquiryPayload>({ ...initialForm, selectedRoom: roomFromQuery });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [response, setResponse] = useState<string>("");
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Set<string>>(new Set());
+
   const nights = useMemo(() => nightsBetween(form.checkIn, form.checkOut), [form.checkIn, form.checkOut]);
 
   useEffect(() => {
@@ -41,15 +59,35 @@ export function EnquiryForm({ selectedRoom }: { selectedRoom?: string }) {
 
   const setField = <K extends keyof EnquiryPayload>(key: K, value: EnquiryPayload[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
+    // Clear error on change
+    setErrors((prev) => ({ ...prev, [key]: undefined, dates: undefined }));
   };
+
+  function touch(field: string) {
+    setTouched((prev) => new Set(prev).add(field));
+  }
+
+  function validate(): FieldErrors {
+    const errs: FieldErrors = {};
+    if (!form.checkIn) errs.checkIn = "Please select a check-in date.";
+    if (!form.checkOut) errs.checkOut = "Please select a check-out date.";
+    if (form.checkIn && form.checkOut && !nights) errs.dates = "Check-out must be after check-in.";
+    if (!form.guestName.trim()) errs.guestName = "Full name is required.";
+    if (!form.phone.trim()) errs.phone = "Phone number is required.";
+    if (!form.email.trim()) errs.email = "Email address is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Please enter a valid email.";
+    return errs;
+  }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setResponse("");
 
-    if (!nights) {
-      setStatus("error");
-      setResponse("Check-out must be after check-in.");
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      // Mark all fields as touched so errors show
+      setTouched(new Set(Object.keys(errs)));
       return;
     }
 
@@ -80,63 +118,138 @@ export function EnquiryForm({ selectedRoom }: { selectedRoom?: string }) {
   }
 
   return (
-    <form className="grid gap-8 bg-[var(--cream)] p-6 md:p-10" onSubmit={onSubmit}>
+    <form className="grid gap-8 bg-[var(--cream)] p-6 md:p-10" onSubmit={onSubmit} noValidate>
+      {/* ── Stay details ─────────────────────────────────────── */}
       <div>
         <p className="eyebrow">Stay details</p>
         <div className="mt-5 grid gap-5 md:grid-cols-2">
-          <label className="grid gap-2 text-sm font-bold">
-            Check-in
-            <input className="focus-ring border border-[var(--line)] bg-white px-4 py-3" min={today} type="date" value={form.checkIn} onChange={(e) => setField("checkIn", e.target.value)} required />
-          </label>
-          <label className="grid gap-2 text-sm font-bold">
-            Check-out
-            <input className="focus-ring border border-[var(--line)] bg-white px-4 py-3" min={form.checkIn || today} type="date" value={form.checkOut} onChange={(e) => setField("checkOut", e.target.value)} required />
-          </label>
+          <DatePicker
+            label="Check-in"
+            value={form.checkIn}
+            min={today}
+            onChange={(v) => { setField("checkIn", v); touch("checkIn"); }}
+            required
+            error={touched.has("checkIn") ? errors.checkIn : undefined}
+          />
+          <DatePicker
+            label="Check-out"
+            value={form.checkOut}
+            min={form.checkIn || today}
+            onChange={(v) => { setField("checkOut", v); touch("checkOut"); }}
+            required
+            error={touched.has("checkOut") ? errors.checkOut : undefined}
+          />
         </div>
-        <p className="mt-4 text-sm text-[var(--muted)]">{nights ? `${nights} night${nights > 1 ? "s" : ""}` : "Select valid dates to calculate nights."}</p>
+
+        {errors.dates && (
+          <p className="mt-2 text-sm text-red-600">{errors.dates}</p>
+        )}
+        <p className="mt-4 text-sm text-[var(--muted)]">
+          {nights ? `${nights} night${nights > 1 ? "s" : ""}` : "Select valid dates to calculate nights."}
+        </p>
+
         <GuestSelector label="Adults" min={1} value={form.adults} onChange={(value) => setField("adults", value)} />
         <GuestSelector label="Children" value={form.children} onChange={(value) => setField("children", value)} />
       </div>
 
+      {/* ── Primary guest ─────────────────────────────────────── */}
       <div>
         <p className="eyebrow">Primary guest</p>
         <div className="mt-5 grid gap-5 md:grid-cols-2">
+          {/* Full name */}
           <label className="grid gap-2 text-sm font-bold">
-            Full name
-            <input className="focus-ring border border-[var(--line)] bg-white px-4 py-3" value={form.guestName} onChange={(e) => setField("guestName", e.target.value)} required />
+            Full name<span className="ml-0.5 text-[var(--sun)]">*</span>
+            <input
+              className={[
+                "border bg-white px-4 py-3 font-normal outline-none transition",
+                "focus:ring-2 focus:ring-[var(--leaf)] focus:ring-offset-1",
+                errors.guestName && touched.has("guestName")
+                  ? "border-red-500"
+                  : "border-[var(--line)]",
+              ].join(" ")}
+              value={form.guestName}
+              onChange={(e) => setField("guestName", e.target.value)}
+              onBlur={() => touch("guestName")}
+            />
+            {errors.guestName && touched.has("guestName") && (
+              <span className="text-xs font-normal text-red-600">{errors.guestName}</span>
+            )}
           </label>
+
+          {/* Phone number */}
           <label className="grid gap-2 text-sm font-bold">
-            Phone number
-            <input className="focus-ring border border-[var(--line)] bg-white px-4 py-3" value={form.phone} onChange={(e) => setField("phone", e.target.value)} required />
+            Phone number<span className="ml-0.5 text-[var(--sun)]">*</span>
+            <input
+              className={[
+                "border bg-white px-4 py-3 font-normal outline-none transition",
+                "focus:ring-2 focus:ring-[var(--leaf)] focus:ring-offset-1",
+                errors.phone && touched.has("phone") ? "border-red-500" : "border-[var(--line)]",
+              ].join(" ")}
+              type="tel"
+              value={form.phone}
+              onChange={(e) => setField("phone", e.target.value)}
+              onBlur={() => touch("phone")}
+            />
+            {errors.phone && touched.has("phone") && (
+              <span className="text-xs font-normal text-red-600">{errors.phone}</span>
+            )}
           </label>
+
+          {/* Email */}
           <label className="grid gap-2 text-sm font-bold">
-            Email
-            <input className="focus-ring border border-[var(--line)] bg-white px-4 py-3" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} required />
+            Email<span className="ml-0.5 text-[var(--sun)]">*</span>
+            <input
+              className={[
+                "border bg-white px-4 py-3 font-normal outline-none transition",
+                "focus:ring-2 focus:ring-[var(--leaf)] focus:ring-offset-1",
+                errors.email && touched.has("email") ? "border-red-500" : "border-[var(--line)]",
+              ].join(" ")}
+              type="email"
+              value={form.email}
+              onChange={(e) => setField("email", e.target.value)}
+              onBlur={() => touch("email")}
+            />
+            {errors.email && touched.has("email") && (
+              <span className="text-xs font-normal text-red-600">{errors.email}</span>
+            )}
           </label>
-          <label className="grid gap-2 text-sm font-bold">
-            Gender
-            <select className="focus-ring border border-[var(--line)] bg-white px-4 py-3" value={form.gender} onChange={(e) => setField("gender", e.target.value as Gender)}>
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-              <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
-            </select>
-          </label>
-          <label className="grid gap-2 text-sm font-bold md:col-span-2">
-            Selected room
-            <select className="focus-ring border border-[var(--line)] bg-white px-4 py-3" value={form.selectedRoom} onChange={(e) => setField("selectedRoom", e.target.value)}>
-              <option value="">Not sure yet</option>
-              {rooms.map((room) => <option key={room.slug} value={room.name}>{room.name}</option>)}
-            </select>
-          </label>
+
+          {/* Gender */}
+          <CustomSelect
+            label="Gender"
+            value={form.gender}
+            options={genderOptions}
+            onChange={(v) => setField("gender", v as Gender)}
+          />
+
+          {/* Selected room */}
+          <CustomSelect
+            label="Selected room"
+            value={form.selectedRoom}
+            options={roomOptions}
+            onChange={(v) => setField("selectedRoom", v)}
+            className="md:col-span-2"
+          />
+
+          {/* Special request */}
           <label className="grid gap-2 text-sm font-bold md:col-span-2">
             Special request
-            <textarea className="focus-ring min-h-32 border border-[var(--line)] bg-white px-4 py-3" value={form.message} onChange={(e) => setField("message", e.target.value)} />
+            <textarea
+              className="min-h-32 border border-[var(--line)] bg-white px-4 py-3 font-normal outline-none transition focus:ring-2 focus:ring-[var(--leaf)] focus:ring-offset-1"
+              value={form.message}
+              onChange={(e) => setField("message", e.target.value)}
+            />
           </label>
         </div>
       </div>
 
-      {response && <p className="text-sm font-bold text-red-700">{response}</p>}
-      <Button type="submit" disabled={status === "loading"}>{status === "loading" ? "Sending..." : "Send enquiry"}</Button>
+      {/* ── Submit ─────────────────────────────────────────────── */}
+      {response && status === "error" && (
+        <p className="text-sm font-bold text-red-700">{response}</p>
+      )}
+      <Button type="submit" disabled={status === "loading"}>
+        {status === "loading" ? "Sending..." : "Send enquiry"}
+      </Button>
     </form>
   );
 }

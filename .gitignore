@@ -7,3 +7,4 @@ target/
 *.log
 asset-contact-sheet.jpg
 video-frame-*.jpg
+*.tsbuildinfo

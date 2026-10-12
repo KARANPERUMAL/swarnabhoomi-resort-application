@@ -11,9 +11,26 @@ export function Footer() {
           <h2 className="mt-4 max-w-xl font-serif text-4xl leading-[0.98] text-balance">A quieter kind of luxury, held close to nature.</h2>
         </div>
         <div className="space-y-4 text-sm text-white/78">
-          <p className="flex gap-3"><Phone size={17} /> {resortContact.phone}</p>
-          <p className="flex gap-3"><Mail size={17} /> {resortContact.email}</p>
-          <p className="flex gap-3"><MapPin className="mt-0.5 shrink-0" size={17} /> {resortContact.address}</p>
+          <a
+            className="flex gap-3 transition hover:text-white"
+            href={`tel:${resortContact.phone.replace(/\s/g, "")}`}
+          >
+            <Phone size={17} /> {resortContact.phone}
+          </a>
+          <a
+            className="flex gap-3 transition hover:text-white"
+            href={`mailto:${resortContact.email}`}
+          >
+            <Mail size={17} /> {resortContact.email}
+          </a>
+          <a
+            className="flex gap-3 transition hover:text-white"
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(resortContact.address)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MapPin className="mt-0.5 shrink-0" size={17} /> {resortContact.address}
+          </a>
           <a className="flex gap-3 transition hover:text-white" href={resortContact.instagram} target="_blank" rel="noreferrer">
             <Instagram size={17} /> Instagram
           </a>

@@ -17,21 +17,21 @@ export default function ContactPage() {
             <h1 className="mt-5 font-serif text-6xl leading-[0.88] md:text-8xl">Let the stay begin with a conversation.</h1>
           </TextReveal>
           <ContentReveal className="bg-[var(--cream)] p-8" delay={0.12}>
-            <a className="flex gap-3 text-lg transition hover:text-[var(--leaf)]" href={`tel:${resortContact.phone.replace(/\s/g, "")}`}>
+            <a className="flex w-fit items-center gap-3 text-lg transition hover:text-[var(--leaf)] hover:underline underline-offset-4 cursor-pointer" href={`tel:${resortContact.phone.replace(/\s/g, "")}`}>
               <Phone /> {resortContact.phone}
             </a>
-            <a className="mt-5 flex gap-3 text-lg transition hover:text-[var(--leaf)]" href={`mailto:${resortContact.email}`}>
+            <a className="mt-5 flex w-fit items-center gap-3 text-lg transition hover:text-[var(--leaf)] hover:underline underline-offset-4 cursor-pointer" href={`mailto:${resortContact.email}`}>
               <Mail /> {resortContact.email}
             </a>
             <a
-              className="mt-5 flex gap-3 leading-7 text-[var(--muted)] transition hover:text-[var(--leaf)]"
+              className="mt-5 flex w-fit items-start gap-3 leading-7 text-[var(--muted)] transition hover:text-[var(--leaf)] hover:underline underline-offset-4 cursor-pointer"
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(resortContact.address)}`}
               target="_blank"
               rel="noreferrer"
             >
               <MapPin className="mt-1 shrink-0" /> {resortContact.address}
             </a>
-            <a className="mt-5 flex gap-3 text-lg text-[var(--leaf)] transition hover:text-[var(--deep)]" href={resortContact.instagram} target="_blank" rel="noreferrer">
+            <a className="mt-5 flex w-fit items-center gap-3 text-lg text-[var(--leaf)] transition hover:text-[var(--deep)] hover:underline underline-offset-4 cursor-pointer" href={resortContact.instagram} target="_blank" rel="noreferrer">
               <Instagram /> Instagram
             </a>
             <div className="mt-8">

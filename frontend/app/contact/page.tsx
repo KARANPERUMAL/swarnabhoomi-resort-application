@@ -17,9 +17,20 @@ export default function ContactPage() {
             <h1 className="mt-5 font-serif text-6xl leading-[0.88] md:text-8xl">Let the stay begin with a conversation.</h1>
           </TextReveal>
           <ContentReveal className="bg-[var(--cream)] p-8" delay={0.12}>
-            <p className="flex gap-3 text-lg"><Phone /> {resortContact.phone}</p>
-            <p className="mt-5 flex gap-3 text-lg"><Mail /> {resortContact.email}</p>
-            <p className="mt-5 flex gap-3 leading-7 text-[var(--muted)]"><MapPin className="mt-1 shrink-0" /> {resortContact.address}</p>
+            <a className="flex gap-3 text-lg transition hover:text-[var(--leaf)]" href={`tel:${resortContact.phone.replace(/\s/g, "")}`}>
+              <Phone /> {resortContact.phone}
+            </a>
+            <a className="mt-5 flex gap-3 text-lg transition hover:text-[var(--leaf)]" href={`mailto:${resortContact.email}`}>
+              <Mail /> {resortContact.email}
+            </a>
+            <a
+              className="mt-5 flex gap-3 leading-7 text-[var(--muted)] transition hover:text-[var(--leaf)]"
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(resortContact.address)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MapPin className="mt-1 shrink-0" /> {resortContact.address}
+            </a>
             <a className="mt-5 flex gap-3 text-lg text-[var(--leaf)] transition hover:text-[var(--deep)]" href={resortContact.instagram} target="_blank" rel="noreferrer">
               <Instagram /> Instagram
             </a>

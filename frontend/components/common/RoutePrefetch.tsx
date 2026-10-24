@@ -9,44 +9,26 @@ export function RoutePrefetch() {
   const router = useRouter();
 
   useEffect(() => {
-    let cancelled = false;
-    const timers: number[] = [];
+    let prefetched = false;
 
-    const prefetchRoutes = () => {
-      if (cancelled) return;
-      routes.forEach((route, index) => {
-        const timer = window.setTimeout(() => {
-          if (!cancelled) router.prefetch(route);
-        }, index * 120);
-        timers.push(timer);
-      });
+    const onUserActivity = () => {
+      if (prefetched) return;
+      prefetched = true;
+      window.removeEventListener("pointerdown", onUserActivity);
+      window.removeEventListener("touchstart", onUserActivity);
+      window.removeEventListener("scroll", onUserActivity);
+
+      routes.forEach((route) => router.prefetch(route));
     };
 
-    // Defer route warming until after initial page load and when the browser is idle
-    // so prefetching never competes with critical LCP images and initial paint.
-    const scheduleIdlePrefetch = () => {
-      const win = typeof window !== "undefined" ? window : null;
-      if (!win) return;
-
-      const idleCallback = (win as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback;
-      if (typeof idleCallback === "function") {
-        const idleId = idleCallback(prefetchRoutes, { timeout: 6000 });
-        timers.push(idleId);
-      } else {
-        const timer = win.setTimeout(prefetchRoutes, 6000);
-        timers.push(timer);
-      }
-    };
-
-    if (document.readyState === "complete") {
-      scheduleIdlePrefetch();
-    } else {
-      window.addEventListener("load", scheduleIdlePrefetch, { once: true });
-    }
+    window.addEventListener("pointerdown", onUserActivity, { passive: true, once: true });
+    window.addEventListener("touchstart", onUserActivity, { passive: true, once: true });
+    window.addEventListener("scroll", onUserActivity, { passive: true, once: true });
 
     return () => {
-      cancelled = true;
-      timers.forEach((timer) => window.clearTimeout(timer));
+      window.removeEventListener("pointerdown", onUserActivity);
+      window.removeEventListener("touchstart", onUserActivity);
+      window.removeEventListener("scroll", onUserActivity);
     };
   }, [router]);
 

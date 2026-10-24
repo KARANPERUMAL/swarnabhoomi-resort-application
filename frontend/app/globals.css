@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@keyframes hero-scale {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-media {
+  animation: hero-scale 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform;
+}
+
 :root {
   --background: #f7f3ea;
   --foreground: #172115;

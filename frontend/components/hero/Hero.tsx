@@ -11,8 +11,8 @@ export function Hero() {
     const node = ref.current;
     if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Staggered copy reveal - media scale is handled by CSS compositor to prevent hydration LCP delay
     const ctx = gsap.context(() => {
-      gsap.fromTo(".hero-media", { scale: 1.04 }, { scale: 1, duration: 1.2, ease: "power3.out" });
       gsap.fromTo(".hero-copy > *", { y: 24 }, { y: 0, duration: 0.55, stagger: 0.08, ease: "power3.out", delay: 0.08 });
     }, ref);
 
@@ -22,17 +22,16 @@ export function Hero() {
   return (
     <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-[var(--deep)] text-white">
       <div className="hero-media absolute inset-0">
-        <picture className="block h-full w-full">
-          <source media="(max-width: 768px)" srcSet="/images/hero/hero-main-mobile.webp" type="image/webp" />
-          <source media="(min-width: 769px)" srcSet="/images/hero/hero-main.webp" type="image/webp" />
-          <img
-            src="/images/hero/hero-main.webp"
-            alt="Aerial view of Swarnabhoomi cottages and pool"
-            fetchPriority="high"
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
-        </picture>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          srcSet="/images/hero/hero-main-mobile.webp 800w, /images/hero/hero-main.webp 1672w"
+          sizes="(max-width: 768px) 100vw, 100vw"
+          src="/images/hero/hero-main-mobile.webp"
+          alt="Aerial view of Swarnabhoomi cottages and pool"
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,18,9,0.68),rgba(8,18,9,0.18)_58%,rgba(8,18,9,0.46))]" />
       <div className="container-xl relative z-10 flex min-h-[100svh] items-end pb-16 pt-32 md:pb-24">

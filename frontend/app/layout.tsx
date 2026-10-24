@@ -5,26 +5,70 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/common/SmoothScroll";
 import { PageReveal } from "@/components/common/PageReveal";
 import { RoutePrefetch } from "@/components/common/RoutePrefetch";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  SITE_URL,
+  SITE_NAME,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  getWebsiteSchema,
+  getResortSchema,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://swarnabhoomi.example"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Swarnabhoomi Farm Stay | The Nature's Nest",
-    template: "%s | Swarnabhoomi Farm Stay",
+    default: "Swarnabhoomi Farm Stay | The Nature's Nest | Resort in Kaggala, Karnataka",
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "A premium farm stay experience shaped around nature, poolside evenings, family stays, food, and calm resort living.",
+  description: DEFAULT_DESCRIPTION,
+  alternates: {
+    canonical: `${SITE_URL}/`,
+  },
   openGraph: {
-    title: "Swarnabhoomi Farm Stay",
-    description:
-      "Home away from home: a nature-led farm stay with cottages, pool, food, and experiences.",
-    images: ["/images/hero/hero-main.webp"],
+    type: "website",
+    locale: "en_IN",
+    url: `${SITE_URL}/`,
+    siteName: SITE_NAME,
+    title: "Swarnabhoomi Farm Stay | The Nature's Nest",
+    description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Swarnabhoomi Farm Stay | The Nature's Nest",
+    description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
+  icons: {
+    icon: [
+      { url: "/logos/swarnabhoomi-logo.svg", type: "image/svg+xml" },
+      { url: "/logos/swarnabhoomi-logo-transparent.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logos/swarnabhoomi-logo-transparent.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <JsonLd data={getWebsiteSchema()} />
+        <JsonLd data={getResortSchema()} />
+      </head>
       <body>
         <SmoothScroll />
         <RoutePrefetch />

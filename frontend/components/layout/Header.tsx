@@ -65,7 +65,7 @@ export function Header() {
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
           {navItems.map((item) => (
-            <Link prefetch className="nav-link focus-ring text-sm font-extrabold uppercase tracking-[0.18em] opacity-90 transition hover:opacity-100" href={item.href} key={item.href}>
+            <Link prefetch={false} className="nav-link focus-ring text-sm font-extrabold uppercase tracking-[0.18em] opacity-90 transition hover:opacity-100" href={item.href} key={item.href}>
               {item.label}
             </Link>
           ))}
@@ -99,7 +99,7 @@ export function Header() {
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
               {navItems.map((item) => (
                 <Link
-                  prefetch
+                  prefetch={false}
                   className="focus-ring border-b border-[var(--line)] py-5 font-serif text-4xl"
                   href={item.href}
                   key={item.href}

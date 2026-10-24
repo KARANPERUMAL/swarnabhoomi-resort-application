@@ -30,10 +30,10 @@ export function RoutePrefetch() {
 
       const idleCallback = (win as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback;
       if (typeof idleCallback === "function") {
-        const idleId = idleCallback(prefetchRoutes, { timeout: 4000 });
+        const idleId = idleCallback(prefetchRoutes, { timeout: 6000 });
         timers.push(idleId);
       } else {
-        const timer = win.setTimeout(prefetchRoutes, 3500);
+        const timer = win.setTimeout(prefetchRoutes, 6000);
         timers.push(timer);
       }
     };

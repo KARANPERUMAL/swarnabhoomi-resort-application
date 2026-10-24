@@ -53,12 +53,12 @@ export function Footer() {
           className="grid gap-3 text-sm font-bold uppercase tracking-[0.14em] text-white/80"
           aria-label="Footer navigation"
         >
-          <Link prefetch href="/rooms">Rooms</Link>
-          <Link prefetch href="/services">Services</Link>
-          <Link prefetch href="/gallery">Gallery</Link>
-          <Link prefetch href="/about">About</Link>
-          <Link prefetch href="/contact">Contact</Link>
-          <Link prefetch href="/enquiry">Enquire</Link>
+          <Link prefetch={false} href="/rooms">Rooms</Link>
+          <Link prefetch={false} href="/services">Services</Link>
+          <Link prefetch={false} href="/gallery">Gallery</Link>
+          <Link prefetch={false} href="/about">About</Link>
+          <Link prefetch={false} href="/contact">Contact</Link>
+          <Link prefetch={false} href="/enquiry">Enquire</Link>
         </nav>
       </div>
     </footer>

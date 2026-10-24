@@ -65,8 +65,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="preload"
           as="image"
           href="/images/hero/hero-main-mobile.webp"
-          imageSrcSet="/images/hero/hero-main-mobile.webp 800w, /images/hero/hero-main.webp 1672w"
-          imageSizes="(max-width: 768px) 100vw, 100vw"
+          media="(max-width: 768px)"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/hero-main.webp"
+          media="(min-width: 769px)"
           fetchPriority="high"
         />
         <JsonLd data={getWebsiteSchema()} />

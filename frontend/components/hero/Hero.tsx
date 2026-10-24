@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Button } from "@/components/common/Button";
@@ -23,7 +22,17 @@ export function Hero() {
   return (
     <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-[var(--deep)] text-white">
       <div className="hero-media absolute inset-0">
-        <Image src="/images/hero/hero-main.webp" alt="Aerial view of Swarnabhoomi cottages and pool" fill sizes="100vw" priority className="object-cover" />
+        <picture className="block h-full w-full">
+          <source media="(max-width: 768px)" srcSet="/images/hero/hero-main-mobile.webp" type="image/webp" />
+          <source media="(min-width: 769px)" srcSet="/images/hero/hero-main.webp" type="image/webp" />
+          <img
+            src="/images/hero/hero-main.webp"
+            alt="Aerial view of Swarnabhoomi cottages and pool"
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </picture>
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,18,9,0.68),rgba(8,18,9,0.18)_58%,rgba(8,18,9,0.46))]" />
       <div className="container-xl relative z-10 flex min-h-[100svh] items-end pb-16 pt-32 md:pb-24">

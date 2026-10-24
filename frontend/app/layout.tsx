@@ -61,6 +61,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/hero-main-mobile.webp"
+          media="(max-width: 768px)"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/hero-main.webp"
+          media="(min-width: 769px)"
+          type="image/webp"
+        />
         <JsonLd data={getWebsiteSchema()} />
         <JsonLd data={getResortSchema()} />
       </head>

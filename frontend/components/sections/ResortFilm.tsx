@@ -103,7 +103,7 @@ export function ResortFilm() {
             ref={videoRef}
             className="film-video aspect-[16/7] min-h-[420px] w-full cursor-pointer object-cover opacity-90"
             src="/videos/hero/resort-film.mp4"
-            poster="/images/hero/hero-main.webp"
+            poster="/images/hero/hero-main-mobile.webp"
             preload="none"
             playsInline
             muted

@@ -54,10 +54,10 @@ export function Header() {
           aria-label="Swarnabhoomi home"
         >
           <Image
-            src="/logos/swarnabhoomi-logo-transparent.png"
+            src="/logos/swarnabhoomi-logo-header.webp"
             alt="Swarnabhoomi Farm Stay"
             width={288}
-            height={170}
+            height={144}
             className="h-full w-full object-contain"
             style={{ display: "block", height: "100%", width: "100%", objectFit: "contain" }}
           />

@@ -1,26 +1,8 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import { Button } from "@/components/common/Button";
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    // Staggered copy reveal - media scale is handled by CSS compositor to prevent hydration LCP delay
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".hero-copy > *", { y: 24 }, { y: 0, duration: 0.55, stagger: 0.08, ease: "power3.out", delay: 0.08 });
-    }, ref);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-[var(--deep)] text-white">
+    <section className="relative min-h-[100svh] overflow-hidden bg-[var(--deep)] text-white">
       <div className="hero-media absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

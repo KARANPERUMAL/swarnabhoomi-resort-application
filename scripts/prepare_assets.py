@@ -88,6 +88,9 @@ def make_logo_assets() -> None:
         cropped.putdata(cleaned)
         cropped.save(PUBLIC / "logos" / "swarnabhoomi-logo-transparent.png")
         cropped.save(PUBLIC / "logos" / "swarnabhoomi-logo-transparent.webp", "WEBP", quality=90)
+        h = round(576 * cropped.height / cropped.width)
+        header_logo = cropped.resize((576, h), Image.LANCZOS)
+        header_logo.save(PUBLIC / "logos" / "swarnabhoomi-logo-header.webp", "WEBP", quality=90)
 
 
 def main() -> None:

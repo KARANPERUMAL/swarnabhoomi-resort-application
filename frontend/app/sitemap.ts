@@ -4,11 +4,12 @@ import { SITE_URL } from "@/lib/seo";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  // Stable verified release timestamp to prevent falsely implying daily changes
+  const lastModified = new Date("2026-10-24T00:00:00.000Z");
 
   return [
     {
-      url: `${SITE_URL}/`,
+      url: SITE_URL,
       lastModified,
       changeFrequency: "weekly",
       priority: 1.0,

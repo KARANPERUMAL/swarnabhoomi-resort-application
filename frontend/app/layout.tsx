@@ -15,6 +15,8 @@ import {
   getResortSchema,
 } from "@/lib/seo";
 
+const isPreview = process.env.VERCEL_ENV === "preview";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -23,12 +25,12 @@ export const metadata: Metadata = {
   },
   description: DEFAULT_DESCRIPTION,
   alternates: {
-    canonical: `${SITE_URL}/`,
+    canonical: SITE_URL,
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: `${SITE_URL}/`,
+    url: SITE_URL,
     siteName: SITE_NAME,
     title: "Swarnabhoomi Farm Stay | The Nature's Nest",
     description: DEFAULT_DESCRIPTION,
@@ -44,17 +46,22 @@ export const metadata: Metadata = {
     icon: "/logos/swarnabhoomi-logo-transparent.png",
     apple: "/logos/swarnabhoomi-logo-transparent.png",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  robots: isPreview
+    ? {
+        index: false,
+        follow: false,
+      }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

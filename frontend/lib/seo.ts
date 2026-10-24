@@ -17,12 +17,12 @@ export const DEFAULT_DESCRIPTION =
   "A nature-led farm stay and resort in Kaggala, Karnataka. Enjoy private villa and cottage stays, swimming pool, farm walks, bonfire, barbeque, and outdoor activities for families and groups.";
 
 /**
- * Normalizes a pathname to a clean canonical absolute URL without trailing slashes (except root).
+ * Normalizes a pathname to a clean canonical absolute URL without trailing slashes.
  */
 export function buildCanonicalUrl(path: string = "/"): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   if (cleanPath === "/" || cleanPath === "") {
-    return `${SITE_URL}/`;
+    return SITE_URL;
   }
   return `${SITE_URL}${cleanPath.replace(/\/$/, "")}`;
 }
@@ -47,6 +47,8 @@ export function buildPageMetadata({
   image,
   noIndex = false,
 }: PageMetadataOptions): Metadata {
+  const isPreview = process.env.VERCEL_ENV === "preview";
+  const shouldNoIndex = noIndex || isPreview;
   const canonicalUrl = buildCanonicalUrl(path);
   const ogImage = image
     ? {
@@ -80,7 +82,7 @@ export function buildPageMetadata({
       description,
       images: [ogImage.url],
     },
-    robots: noIndex
+    robots: shouldNoIndex
       ? {
           index: false,
           follow: false,
@@ -107,7 +109,7 @@ export function getWebsiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    url: `${SITE_URL}/`,
+    url: SITE_URL,
     name: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
     inLanguage: "en-IN",
@@ -127,7 +129,7 @@ export function getResortSchema() {
     "@id": `${SITE_URL}/#resort`,
     name: resortContact.name,
     alternateName: "Swarnabhoomi Resort",
-    url: `${SITE_URL}/`,
+    url: SITE_URL,
     logo: `${SITE_URL}/logos/swarnabhoomi-logo-transparent.png`,
     image: `${SITE_URL}/images/hero/hero-main.webp`,
     description:

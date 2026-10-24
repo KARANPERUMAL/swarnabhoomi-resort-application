@@ -41,13 +41,8 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE.url],
   },
   icons: {
-    icon: [
-      { url: "/logos/swarnabhoomi-logo.svg", type: "image/svg+xml" },
-      { url: "/logos/swarnabhoomi-logo-transparent.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: [
-      { url: "/logos/swarnabhoomi-logo-transparent.png", sizes: "180x180", type: "image/png" },
-    ],
+    icon: "/logos/swarnabhoomi-logo-transparent.png",
+    apple: "/logos/swarnabhoomi-logo-transparent.png",
   },
   robots: {
     index: true,
